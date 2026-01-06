@@ -1,16 +1,19 @@
+from django.shortcuts import render
+
+# Create your views here.
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 
-from .models import User
-from .serializer import UserSerializer
+from .models import Plan
+from .serializer import PlanSerializer
 
 # Create your views here.
 
-class UserAPI(APIView):
+class PlanAPI(APIView):
     
     def post(self, request):
-        serializer = UserSerializer(data=request.data)
+        serializer = PlanSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -19,25 +22,25 @@ class UserAPI(APIView):
     def get(self, request, id=None):
         if id:
             try:
-                customer = User.objects.get(id=id)  # Corrected to .objects
-            except User.DoesNotExist:
+                plan = Plan.objects.get(id=id)  # Corrected to .objects
+            except Plan.DoesNotExist:
                 return Response({'error': "Not Found"}, status=status.HTTP_404_NOT_FOUND)
 
-            serializer = UserSerializer(customer)
+            serializer = PlanSerializer(plan)
             return Response(serializer.data)
 
-        users = User.objects.all()  # Corrected to .objects
-        serializer = UserSerializer(users, many=True)
+        plans = Plan.objects.all()  # Corrected to .objects
+        serializer = PlanSerializer(plans, many=True)
         return Response(serializer.data)
 
     def put(self, request, id):
         if id:
             try:
-                user = User.objects.get(id=id)  # Corrected to .objects
-            except User.DoesNotExist:  # Corrected exception type
+                plan = Plan.objects.get(id=id)  # Corrected to .objects
+            except Plan.DoesNotExist:  # Corrected exception type
                 return Response({'error': "Not Found"}, status=status.HTTP_404_NOT_FOUND)
 
-            serializer = UserSerializer(user, data=request.data)
+            serializer = PlanSerializer(plan, data=request.data)
             if serializer.is_valid():
                 serializer.save()
                 return Response(serializer.data)
@@ -46,8 +49,8 @@ class UserAPI(APIView):
 
     def delete(self, request, id):
         try:
-            user = User.objects.get(id=id)
-        except User.DoesNotExist:
+            plan = Plan.objects.get(id=id)
+        except Plan.DoesNotExist:
             return Response({'error': "Not Found"}, status=status.HTTP_404_NOT_FOUND)
-        user.delete()
+        plan.delete()
         return Response({"message": "Customer Deleted"}, status=status.HTTP_204_NO_CONTENT)
