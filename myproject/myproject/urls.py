@@ -43,5 +43,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),  # Admin URL
     path('customer/', include('customer.urls')),  # Your app's customer URLs
     path('user/', include('user.urls')), 
-    path('plan/', include('plan.urls')),  # This is the root path '/' that returns a welcome message
+    path('plan/', include('plan.urls')), 
+    path('transaction/', include('transaction.urls')), 
+    path('deposite/', include('deposite.urls')),
+    path('expense/', include('expense.urls')), # This is the root path '/' that returns a welcome message
 ]
