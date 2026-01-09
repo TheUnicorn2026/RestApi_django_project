@@ -16,13 +16,14 @@ Including another URLconf
 """
 
 from django.urls import path
-from .views import UserAPI
+from .views import UserAPI, LoginAPI
 from . import views
 
 urlpatterns = [
     path('', UserAPI.as_view(), name='root'),
     path('user/', views.UserAPI.as_view(), name='user_api'),
     path('<int:id>/', UserAPI.as_view(), name='_detail'), 
+    path('login/', LoginAPI.as_view(), name='login'),
 
 
 # wrong =>

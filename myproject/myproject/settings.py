@@ -25,7 +25,8 @@ SECRET_KEY = "django-insecure-uo431m3ii&lq=db8absrl$+o(a)kw##0ctf7x(m3&kb7jz7fe&
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'http://localhost:5500/']
+
 
 
 # Application definition
@@ -38,6 +39,7 @@ INSTALLED_APPS = [
     "expense",
     "deposite",
     "rest_framework",
+    "corsheaders",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -47,6 +49,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware", 
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -55,6 +58,15 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+
+
+
+CORS_ALLOWED_ORIGINS = [
+    "http://127.0.0.1:5500",  # Allow frontend running at this address
+    "http://localhost:5500",   # If using localhost
+]
+
+CORS_ALLOW_ALL_ORIGINS = True
 
 ROOT_URLCONF = "myproject.urls"
 
@@ -116,6 +128,7 @@ TIME_ZONE = "UTC"
 USE_I18N = True
 
 USE_TZ = True
+
 
 
 # Static files (CSS, JavaScript, Images)
