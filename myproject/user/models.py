@@ -8,8 +8,10 @@ class User(models.Model):
     email = models.EmailField()
     phone = models.CharField(max_length= 10)
     password = models.TextField(max_length=220, default='')
-    type = models.CharField(max_length=50, default='')
+    reset_token = models.CharField(max_length=512, blank=True, null=True)
     telegram_chat_id = models.CharField(max_length=50, blank=True, null=True)
+
+    type = models.CharField(max_length=50, default='')
     created_at = models.DateTimeField(auto_now_add = True)
 
     def __str__(self):
