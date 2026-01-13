@@ -129,6 +129,21 @@ def send_telegram_message(chat_id, text):
     except Exception:
         return False
 
+class TelegramLinkTokenAPI(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        user = request.user
+
+        token = uuid.uuid4().hex
+        user.reset_token = token
+        user.save()
+
+        return Response({
+            "message": "Send this to Telegram bot",
+            "telegram_command": f"/start {token}"
+        })
+
 
 
 class ForgotPasswordAPI(APIView):
